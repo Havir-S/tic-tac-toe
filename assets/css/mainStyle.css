@@ -1,0 +1,296 @@
+@keyframes scroll-fade-in {
+  0% {
+    top: -100px;
+    opacity: 0;
+    filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+  100% {
+    top: 5%;
+    opacity: 1;
+    filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+}
+@keyframes anim-roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+}
+
+.error-section {
+  display: none;
+  position: absolute;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+.error-section .error-container {
+  border: 2px solid #561d1d;
+  background: #dcc8be;
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, 0);
+  animation: scroll-fade-in 0.5s ease-in forwards;
+  width: 60vh;
+}
+.error-section .error-container .error-el, .error-section .error-container .error-msg, .error-section .error-container .error-wrong {
+  padding: 5px;
+}
+.error-section .error-container .error-wrong {
+  text-align: center;
+  font-size: 1.4rem;
+}
+.error-section .error-container .error-el {
+  font-size: 1rem;
+}
+.error-section .error-container .error-exit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  animation: anim-roll 1s infinite linear;
+  cursor: pointer;
+}
+
+.setup-container {
+  border: 1px solid green;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100vh;
+  z-index: 5;
+}
+.setup-container .size-config, .setup-container .map-config {
+  display: none;
+}
+.setup-container .option-wrapper {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid orange;
+}
+.setup-container .option-wrapper .config-container {
+  border: 1px solid blue;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-screen-container {
+  width: 100%;
+  height: 100vh;
+}
+.main-screen-container #game-map {
+  width: 100%;
+  height: 100%;
+}
+.main-screen-container #game-map .container {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+}
+.main-screen-container #game-map .container-left {
+  border: 1px solid pink;
+  width: 100%;
+  max-width: calc(100% - 325px);
+}
+.main-screen-container #game-map .container-left::before {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-left::after {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-left .top-div {
+  position: relative;
+  color: white;
+  background: black;
+  font-size: 2rem;
+  height: 110px;
+  width: 100%;
+}
+.main-screen-container #game-map .container-left .top-div > * {
+  display: inline-block;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div {
+  border: 1px solid red;
+  background: #ff6666;
+  width: 240px;
+  height: 60px;
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div {
+  border: 2px solid blue;
+  background: #6666ff;
+  width: 300px;
+  height: 100%;
+  float: right;
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div::before {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div::after {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-left .game-container {
+  border: 3px solid blue;
+  background: #6666ff;
+  position: relative;
+  width: 100%;
+  height: 650px;
+}
+.main-screen-container #game-map .container-left .game-container .game-div {
+  width: 100%;
+  max-width: 650px;
+  height: 650px;
+  border: 1px solid yellow;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+}
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject {
+  border: 4px solid red;
+  z-index: 1000;
+}
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject[data-box=player1] {
+  background: green;
+}
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject[data-box=player2] {
+  background: red;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container {
+  border: 6px solid red;
+  width: 100%;
+  height: calc(100% - 760px );
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat {
+  border: 1px solid yellow;
+  width: 100%;
+  height: calc(100% - 52px);
+  position: relative;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat .ingame-chat-main {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type {
+  height: 52px;
+  border: 3px solid blue;
+  width: 100%;
+}
+.main-screen-container #game-map .container-right {
+  border: 3px solid lightblue;
+  float: right;
+  width: 100%;
+  max-width: 325px;
+}
+.main-screen-container #game-map .container-right::before {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-right::after {
+  content: "";
+  display: table;
+  float: left;
+  clear: both;
+}
+.main-screen-container #game-map .container-right .chat-container {
+  border: 5px solid red;
+  width: 100%;
+  height: 100%;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-info {
+  width: 100%;
+  border: 6px solid yellow;
+  height: 60px;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-inside {
+  width: 100%;
+  border: 6px solid black;
+  height: calc(100% - 180px);
+  position: relative;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-inside .chat-main-div {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-inside .chat-main-div .chat-message .message-text {
+  color: white;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-answer {
+  width: 100%;
+  border: 6px solid yellow;
+  height: 120px;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-answer #chat-input {
+  width: 200px;
+  height: auto;
+  border-radius: 0;
+  padding: 5px;
+  margin: 0;
+  top: 0;
+}
+.main-screen-container .map_paper {
+  background: blue;
+}
+.main-screen-container .map_pixel {
+  background: orange;
+}
+.main-screen-container .map_dark {
+  background: green;
+}
+.main-screen-container .map_light {
+  background: red;
+}
+.main-screen-container .map_campfire {
+  background: linear-gradient(45deg, pink, lightblue);
+}
+.main-screen-container .map_empty {
+  background: #fff;
+}
+
+/*# sourceMappingURL=mainStyle.css.map */

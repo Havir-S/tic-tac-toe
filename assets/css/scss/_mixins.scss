@@ -1,0 +1,21 @@
+@mixin posOpts($left,$top,$translateX,$translateY) {
+  position: absolute;
+  left: $left;
+  top: $top;
+  transform: translate($translateX, $translateY);
+}
+
+@mixin fixfloat {
+  &::before {
+    content: "";
+    display: table;
+    float: left;
+    clear: both;
+  }
+  &::after {
+    content: "";
+    display: table;
+    float: left;
+    clear: both;
+  }
+}

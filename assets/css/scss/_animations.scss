@@ -1,0 +1,32 @@
+@mixin scroll-fade-in($time) {
+  animation: scroll-fade-in $time ease-in forwards;
+}
+
+@keyframes scroll-fade-in {
+  0% {
+    top: -100px;
+    opacity: 0;
+    filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+  100% {
+    top: 5%;
+    opacity: 1;
+    filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+
+}
+
+@mixin anim-roll {
+  animation: anim-roll 1s infinite linear;
+}
+
+@keyframes anim-roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
