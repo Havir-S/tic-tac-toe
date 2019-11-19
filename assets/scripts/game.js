@@ -251,14 +251,14 @@ function againstAi(x) {
     console.log('player made his move');
     console.log('now ai makes its move');
 
-var validPositions = document.querySelectorAll('.game-gridObject[data-box="none"]'),
+    validPositions = document.querySelectorAll('.game-gridObject[data-box="none"]'),
     choosenPosition = validPositions[randomNumber(validPositions.length)];
     gameObject.turn = 'player2';
     console.log(choosenPosition);
     choosenPosition.setAttribute('data-used','true');
     choosenPosition.setAttribute('data-box', 'player2');
     choosenPosition.removeEventListener('click',againstAi, options);
-    checkForWin('player2',this);
+    checkForWin('player2',choosenPosition);
     gameObject.turn = 'player1';
 
 
@@ -297,8 +297,6 @@ createField(5,5);
 function checkForWin(x,y) {
   var currentCol = Number(y.getAttribute('data-column')),
       currentRow =  Number(y.getAttribute('data-row'));
-
-
 
   //0 check
   if (
@@ -426,6 +424,10 @@ function changeScore(x) {
   player2ScoreSpan.innerHTML = gameObject.player2score;
   player1NameSpan.innerHTML = gameObject.player1Name;
   player2NameSpan.innerHTML = gameObject.player2Name;
+
+  // var sizeArray = gameObject.mapSize.split("x");
+  // createField(sizeArray[0],sizeArray[1]);
+
 }
 
 //CHANGE THE GAME ACCORDING TO THE OPTIONS
