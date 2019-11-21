@@ -1,3 +1,5 @@
+(function() {
+
 
 //RANDOM MESSAGES
 const defaultMessages = ['Hi!','Hello!','hi','hello',"who's playing?","oh wow",'yo',"Who is winning?","LETS GOOOO","Why am i even watching this", "what is life", "Well placed", 'They actually did it!', "c'mon one more",
@@ -132,7 +134,30 @@ let message = "<p class='chat-message'>",
   }
 
   // RANDOM MESSAGES EVENT
-  // var interval = setInterval(assembleMessage,1000);
+
+
+
+  const chatControl = (function() {
+
+    let chatInterval;
+
+    //starts the chat
+    function chatStart () {
+       chatEnd();
+       chatInterval = setInterval(assembleMessage,1400);
+    }
+    //stop the chat
+    function chatEnd() {
+      clearInterval(chatInterval);
+    }
+    return {chatStart,chatEnd}
+
+  })();
+
+
+
+
+
 
   // ======================================================
   // ADD MESSAGE TO THE CHAT ==============================
@@ -191,6 +216,7 @@ window.addEventListener('keyup',function() {
     if (right_chat_value && event.key == 'Enter') {
       sendMessage(playerSendMessage(right_chat_value));
       right_chat.value = "";
+      left_chat.value = "";
     }
     if (left_chat_value && event.key == 'Enter') {
       addMessageToMainChat(playerSendMessage(left_chat_value));
@@ -216,7 +242,6 @@ var color = colorGenerator(),
  } else if (digitsOnly.test(x)) {
    y = '01100101 01101110 01100100 00100000 01101101 01111001 00100000 01101101 01101001 01110011 01100101 01110010 01111001';
  } else {
-   console.log('ding');
    y = 'Let\'s play!';
  }
 
@@ -255,7 +280,7 @@ function aiAnswers(x) {
     //starts the change
     function startChanging () {
        stopChanging();
-       viewerChange = setInterval(changeViewers,500);
+       viewerChange = setInterval(changeViewers,2000);
     }
     function stopChanging() {
       clearInterval(viewerChange);
@@ -263,3 +288,67 @@ function aiAnswers(x) {
     return {startChanging,stopChanging}
 
   })();
+
+  const turnOnOrOffChat = document.querySelector('.viewers-turnOff');
+  let chatIsOn = true;
+  turnOnOrOffChat.addEventListener('click', function() {
+    if (chatIsOn == true) {
+      chatControl.chatStart();
+      chatIsOn = !chatIsOn;
+      viewerControl.startChanging();
+    } else if (chatIsOn == false) {
+      chatControl.chatEnd();
+      viewerControl.stopChanging();
+      chatIsOn = !chatIsOn;
+    }
+    turnOnOrOffChat.classList.toggle('viewers-off');
+  })
+
+  //===========================================================================================
+  //===================== MUSIC =============================================================
+  //===========================================================================================
+
+  const musicSettings = document.querySelector('.music'),
+        gameSettings = document.querySelector('.gameSettings'),
+        restartGameButton = document.querySelector('.restart'),
+        settingButtons = [musicSettings,gameSettings,restartGameButton],
+        settingsHidden = document.querySelectorAll('.settings-hidden'),
+        lockBoxes = document.querySelectorAll('.lock-box');
+
+//buttons get their events
+settingButtons.forEach((x) => {
+  x.addEventListener('click', function() {
+    settingsBoxes(this);
+  });
+})
+
+lockBoxes.forEach(x => {
+  x.addEventListener('click',function() {
+    x.parentNode.classList.toggle('d-none');
+  })
+})
+
+settingsHidden.forEach(x => {
+  x.addEventListener('click',function() {
+    for (i = 0; i < settingsHidden.length; i++) {
+      if (!settingsHidden[i].classList.contains('d-none')) {
+        settingsHidden[i].classList.add('d-none');
+      }
+    }
+  })
+})
+//some fun fast magic based on buttons functionality
+  function settingsBoxes(x) {
+
+    var whichBox = x.getAttribute('data-setting-box');
+
+    if (whichBox == 'full-restart') {
+      location.reload();
+      return;
+    }
+    var theBox = document.querySelector(`.${whichBox}`);
+        theBox.classList.toggle('d-none');
+
+  }
+
+})();

@@ -8,7 +8,7 @@
     <meta name="description" content="Tic Tac Toe CSS JavaScript ES6">
     <meta name="keywords" content="HTML5, CSS3, JS, TIC, TAC, TOE, GAME">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Fredericka+the+Great|Gruppo|Luckiest+Guy|Permanent+Marker|Press+Start+2P|VT323|ZCOOL+KuaiLe&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Fredericka+the+Great|Gruppo|Luckiest+Guy|Permanent+Marker|Press+Start+2P|VT323|ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/resetCSS.css">
     <link rel="stylesheet" href="./assets/css/mainStyle.css">
     <link rel="shortcut icon" type="image/png" href="./assets/imgs/tic-tac-toe.png"/>
@@ -16,15 +16,20 @@
   </head>
   <body>
     <div class="wrapper">
-      <section class="setup-container" >
+      <section class="setup-container">
 
         <div class="option-wrapper player-config" data-settings='0'>
         <div class="config-container">
-          <form class="config-form form-map-size" action="/" method="post">
-            <label for="player_vs_player">PLAYER VS PLAYER</label>
-            <input id='player_vs_player' type="radio" name="player-setting" value="player_vs_player">
-            <label for="player_vs_ai">PLAYER VS AI</label>
-            <input id='player_vs_ai' type="radio" name="player-setting" value="player_vs_ai" checked>
+          <h3>GAME MODE</h3>
+          <form class="config-form form-map-mode" action="/" method="post">
+            <div class="option-div">
+              <label for="player_vs_player">PLAYER VS PLAYER</label>
+              <input id='player_vs_player' type="radio" name="player-setting" value="player_vs_player">
+            </div>
+            <div class="option-div">
+              <label for="player_vs_ai">PLAYER VS AI</label>
+              <input id='player_vs_ai' type="radio" name="player-setting" value="player_vs_ai" checked>
+            </div>
           </form>
           <div class="setup-panel setup-arrows" data-settings-div='0'>
             <button class='setup-button setup-button-next' type="button" name="button">NEXT</button>
@@ -34,11 +39,16 @@
 
         <div class="option-wrapper size-config" data-settings='1'>
         <div class="config-container">
+          <h3>Map size</h3>
           <form class="config-form form-map-size" action="/" method="post">
-            <label for="3_x_3">3 x 3</label>
-            <input id='3_x_3' type="radio" name="map-size" value="3x3" checked>
-            <label for="10_x_10">10 x 10</label>
-            <input id='10_x_10' type="radio" name="map-size" value="10x10">
+            <div class="option-div">
+              <label for="3_x_3">3 x 3</label>
+              <input id='3_x_3' type="radio" name="map-size" value="3x3" checked>
+            </div>
+            <div class="option-div">
+              <label for="10_x_10">10 x 10</label>
+              <input id='10_x_10' type="radio" name="map-size" value="10x10">
+            </div>
           </form>
           <div class="setup-panel setup-size" data-settings-div='1'>
             <button class='setup-button setup-button-prev' type="button" name="button">PREV</button>
@@ -49,20 +59,26 @@
 
         <div class="option-wrapper map-config" data-settings='2'>
         <div class="config-container">
-          <form class="config-form form-map-size" action="/" method="post" onsubmit="submitOptions()">
-            <label for="map_paper">Paper map</label>
-            <input id='map_paper' type="radio" name="map-name" value="map_paper">
-            <label for="map_dark">Dark mode</label>
-            <input id='map_dark' type="radio" name="map-name" value="map_dark">
-            <label for="map_light">Light mode</label>
-            <input id='map_light' type="radio" name="map-name" value="map_light" >
-            <label for="map_pixel">Pixel mode</label>
-            <input id='map_pixel' type="radio" name="map-name" value="map_pixel" checked>
-            <label for="map_campfire">Campfire mode</label>
-            <input id='map_campfire' type="radio" name="map-name" value="map_campfire">
-            <label for="map_empty">Empty mode</label>
-            <input id='map_empty' type="radio" name="map-name" value="map_empty">
+          <h3>Map style</h3>
+          <form class="config-form form-map-name" action="/" method="post" onsubmit="submitOptions()">
+            <div class="option-div">
+              <label for="map_paper">Paper map</label>
+              <input id='map_paper' type="radio" name="map-name" value="map_paper">
+            </div>
+            <div class="option-div">
+              <label for="map_dark">Dark mode</label>
+              <input id='map_dark' type="radio" name="map-name" value="map_dark">
+            </div>
+            <div class="option-div">
+              <label for="map_light">Light mode</label>
+              <input id='map_light' type="radio" name="map-name" value="map_light" >
+            </div>
+            <div class="option-div">
+              <label for="map_pixel">Pixel mode</label>
+              <input id='map_pixel' type="radio" name="map-name" value="map_pixel" checked>
+            </div>
           </form>
+          <h4>*not implemented yet</h4>
           <div class="setup-panel setup-map" data-settings-div='2'>
             <button class='setup-button setup-button-prev' type="button" name="button">PREV</button>
             <button id='setup-button-start' class='setup-button' type="submit" name="button">START</button>
@@ -73,12 +89,28 @@
 
       </section>
 
-      <main class='main-screen-container'>
+      <main class='main-screen-container d-none'>
         <div id='game-map' class="map_dark map_paper">
           <div class="container container-left">
             <div class="top-div">
               <div class="settings-div">
-
+                <div class="settings-option gameSettings" title='Game settings' data-setting-box="settings-hidden-gameSettings">
+                  <img class='settings-icon' src="./assets/imgs/settings.png" alt="settings">
+                </div>
+                <div class="settings-option music" title='Music settings' data-setting-box="settings-hidden-music">
+                  <img class='settings-icon' src="./assets/imgs/musical-note.png" alt="settings">
+                </div>
+                <div class="settings-option restart" title='Full restart' data-setting-box="full-restart">
+                  <img class='settings-icon' src="./assets/imgs/loop-arrow.png" alt="settings">
+                </div>
+                <div class="settings-hidden settings-hidden-gameSettings d-none">
+                  <span>Sorry, this part is yet to be made, if this project renders more promising</span>
+                  <img class='lock-box' src="./assets/imgs/visibility.png" alt="settings">
+                </div>
+                <div class="settings-hidden settings-hidden-music d-none">
+                  <img class='lock-box' src="./assets/imgs/visibility.png" alt="settings">
+                  <span>I figured, that adding 20mbs of music would be an overkill, sorry, maybe next time!</span>
+                </div>
               </div>
               <div class="scoreboard-div">
                 <div class="contestor-div">
@@ -96,8 +128,21 @@
               <div id='gameGrid' class="game-div">
 
               </div>
-              <div class="restart-game-screen">
+              <div class="aftermatchScreen d-none">
+                <h3>ROUND OVER!</h3>
+                <div class="aftermatchScreen-scores-box">
+                  <div class="aftermatchScreen-scores">
+                    <span class='aftermatch-player1'>PLAYER 1</span>
+                    <span class='aftermatch-player1score'>0</span>
+                  </div>
+                  <div class="aftermatchScreen-scores">
+                    <span class='aftermatch-player2'>PLAYER 2</span>
+                    <span class='aftermatch-player2score'>0</span>
+                  </div>
 
+                </div>
+                <h4>Play again?</h4>
+                <button id='nextRound' type="button" name="button">Next round</button>
               </div>
             </div>
             <div class="ingame-chat-container">
@@ -120,15 +165,19 @@
           <div class="container container-right">
             <div class="chat-container">
               <div class="chat-info">
-                viewers: <span id='viewer-span'>1337</span>
+                <div class="">
+                  <img class='viewers-img' src="./assets/imgs/multiple-users-silhouette.png" alt="viewers">
+                  <span>viewers: </span>
+                  <span id='viewer-span'>1337</span>
+                </div>
+
+                <img class='viewers-img viewers-turnOff' src="./assets/imgs/shut-down-icon.svg" alt="turnOff">
               </div>
               <div class="chat-inside">
                 <div class="chat-main-div">
                 </div>
               </div>
               <div class="chat-answer">
-
-
 
                 <input id='chat-input' type="text" value="" placeholder="Type here...">
                 <button id='chat-add-message' type="button" name="button">Text</button>

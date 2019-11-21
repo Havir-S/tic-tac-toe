@@ -1,3 +1,5 @@
+(function() {
+
 
 
 let gameObject;
@@ -98,10 +100,14 @@ function submitOptions() {
   if (setupCheck()) {
     optionsHide();
     gameStart(setupCheck());
+    document.querySelector('.main-screen-container').classList.remove('d-none');
+    document.querySelector('.viewers-turnOff').click();
   } else {
     console.log('something went wrong');
   }
 }
+
+
 
 //=====================================================
 // MAIN EVENT STARTING UP THE GAME ========================================================================================
@@ -128,7 +134,6 @@ function gameStart (setup) {
   gameObject.mapSize = setup.mapSize;
   gameObject.ai = setup.enemy;
   gameObject.setupDone = true;
-  console.log(gameObject);
   gameChange(gameObject);
 }
 
@@ -226,7 +231,6 @@ function createField(x,y) {
     gridObject.setAttribute('data-row', row);
     gridObject.setAttribute('data-box', 'none');
     fieldGrid.appendChild(gridObject);
-    gridObject.innerHTML = `column: ${column} row: ${row}`;
     if (gameObject.ai == "player_vs_player") {
       gridObject.addEventListener('click',makeAMove, options);
     } else if (gameObject.ai = "player_vs_ai") {
@@ -239,30 +243,34 @@ function createField(x,y) {
 //PLAYER VS AI
 var choosen;
 function againstAi(x) {
-  console.log(this);
-
-
    if (gameObject.turn == "player1" && gameObject.ai == 'player_vs_ai') {
      //PLAYER MAKES A MOVE
 
      this.setAttribute('data-used','true');
      this.setAttribute('data-box', 'player1');
-    checkForWin('player1',this);
-    console.log('player made his move');
-    console.log('now ai makes its move');
+     if (gameObject.mapSize == "3x3") {
+       this.innerHTML = '<span class="pixel-mode-text">X</span>';
+     } else if (gameObject.mapSize == "10x10") {
+       this.innerHTML = '<span class="pixel-mode-text-small">X</span>';
+     }
 
+    // checkForWin('player1',this);
+    if (checkForWin('player1',this)) {
+      return
+    }
     validPositions = document.querySelectorAll('.game-gridObject[data-box="none"]'),
     choosenPosition = validPositions[randomNumber(validPositions.length)];
     gameObject.turn = 'player2';
-    console.log(choosenPosition);
     choosenPosition.setAttribute('data-used','true');
     choosenPosition.setAttribute('data-box', 'player2');
+    if (gameObject.mapSize == "3x3") {
+      choosenPosition.innerHTML = '<span class="pixel-mode-text">O</span>';
+    } else if (gameObject.mapSize == "10x10") {
+      choosenPosition.innerHTML = '<span class="pixel-mode-text-small">O</span>';
+    }
     choosenPosition.removeEventListener('click',againstAi, options);
     checkForWin('player2',choosenPosition);
     gameObject.turn = 'player1';
-
-
-    console.log('Ai made a move');
   }
 }
 
@@ -272,23 +280,21 @@ function makeAMove(x) {
   if (gameObject.turn == 'player1' && gameObject.ai == 'player_vs_player') {
     this.setAttribute('data-box', 'player1');
     gameObject.turn = 'player2';
-    this.innerHTML = 'x';
-    console.log('I just placed x');
+    this.innerHTML = '<span class="pixel-mode-text">X</span>';
     //check if this move won the game
     checkForWin('player1',this);
 
   } else if (gameObject.turn == 'player2' && gameObject.ai == 'player_vs_player') {
     this.setAttribute('data-box', 'player2');
     gameObject.turn = 'player1';
-    this.innerHTML = 'o';
-    console.log('I just placed o');
+    this.innerHTML = '<span class="pixel-mode-text">O</span>';
     //Check if this move won the game
     checkForWin('player2',this);
 
   }
 }
 
-createField(5,5);
+
 
 // ==========================================================================
 // THIS IS WHERE THE FUN BEGINS =============================================
@@ -303,8 +309,8 @@ function checkForWin(x,y) {
     (up1 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow - 1}"][data-box="${x}"]`)) &&
     (up2 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow - 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 to up`);
     changeScore(x);
+    return true;
   } else
 
   //45 check
@@ -313,8 +319,8 @@ function checkForWin(x,y) {
     (upRight1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow - 1}"][data-box="${x}"]`)) &&
     (upRight2 = document.querySelector(`.game-gridObject[data-column="${currentCol + 2}"][data-row="${currentRow - 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 45deg`);
     changeScore(x);
+    return true;
   } else
 
   //90 check
@@ -322,8 +328,8 @@ function checkForWin(x,y) {
     (right1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow}"][data-box="${x}"]`)) &&
     (right2 = document.querySelector(`.game-gridObject[data-column="${currentCol + 2}"][data-row="${currentRow}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 to right`);
     changeScore(x);
+    return true;
   } else
 
   //135 check
@@ -331,8 +337,8 @@ function checkForWin(x,y) {
     (upLeft1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow + 1}"][data-box="${x}"]`)) &&
     (upLeft2 = document.querySelector(`.game-gridObject[data-column="${currentCol + 2}"][data-row="${currentRow + 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 135deg`);
     changeScore(x);
+    return true;
   } else
 
   //180 check
@@ -340,16 +346,16 @@ function checkForWin(x,y) {
     (down1 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow + 1}"][data-box="${x}"]`)) &&
     (down2 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow + 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 to down`);
     changeScore(x);
+    return true;
   } else
   //225 check
   if (
     (downLeft1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow + 1}"][data-box="${x}"]`)) &&
     (downLeft2 = document.querySelector(`.game-gridObject[data-column="${currentCol - 2}"][data-row="${currentRow + 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 225deg`);
     changeScore(x);
+    return true;
   } else
 
   //270 check
@@ -357,17 +363,17 @@ function checkForWin(x,y) {
     (left1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow}"][data-box="${x}"]`)) &&
     (left2 = document.querySelector(`.game-gridObject[data-column="${currentCol - 2}"][data-row="${currentRow}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 to left`);
     changeScore(x);
+    return true;
   } else
   //315 check
   if (
     (downLeft1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow - 1}"][data-box="${x}"]`)) &&
     (downLeft2 = document.querySelector(`.game-gridObject[data-column="${currentCol - 2}"][data-row="${currentRow - 2}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by 3 315deg`);
     changeScore(x);
-  }
+    return true;
+  } else
 
   //CHECK IF THE CURRENT ONE IS IN MIDDLE IS IN MIDDLE
   //0 check middle
@@ -375,24 +381,24 @@ function checkForWin(x,y) {
     (up1 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow - 1}"][data-box="${x}"]`)) &&
     (down1 = document.querySelector(`.game-gridObject[data-column="${currentCol}"][data-row="${currentRow + 1}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by middle 0deg`);
     changeScore(x);
+    return true;
   } else
   //45 check middle
   if (
     (upRight1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow - 1}"][data-box="${x}"]`)) &&
     (downLeft1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow + 1}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by diagnal 45deg`);
     changeScore(x);
+    return true;
   } else
   //90 check middle
   if (
     (right1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow}"][data-box="${x}"]`)) &&
     (left1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by middle 90deg`);
     changeScore(x);
+    return true;
   } else
 
   //135 check middle
@@ -400,33 +406,71 @@ function checkForWin(x,y) {
     (upRight1 = document.querySelector(`.game-gridObject[data-column="${currentCol + 1}"][data-row="${currentRow + 1}"][data-box="${x}"]`)) &&
     (downLeft1 = document.querySelector(`.game-gridObject[data-column="${currentCol - 1}"][data-row="${currentRow - 1}"][data-box="${x}"]`))
   ) {
-    console.log(`${x} wins! by diagnal 135deg`);
     changeScore(x);
+    return true;
   }
+
+  //NO MORE SPACE == DRAW
+  var freeSpaces = document.querySelectorAll('.game-gridObject[data-box="none"]');
+  if (freeSpaces.length == 0) {
+    afterMatch();
+    return true;
+  }
+
+  return false;
 
 }
 
-//CHANGE SCORE
+//CHANGE SCORE SECTION
 const player1ScoreSpan = document.getElementById('player1Score'),
       player1NameSpan = document.getElementById('player1Name'),
       player2ScoreSpan = document.getElementById('player2Score'),
-      player2NameSpan = document.getElementById('player2Name');
+      player2NameSpan = document.getElementById('player2Name'),
+      player1ScoreAfterScreen = document.querySelector('.aftermatch-player1score'),
+      player1NameAfterScreen = document.querySelector('.aftermatch-player1'),
+      player2ScoreAfterScreen = document.querySelector('.aftermatch-player2score'),
+      player2NameAfterScreen = document.querySelector('.aftermatch-player2');
+
+
+//FUNCTION THAT DEALS WITH THE SCORE AND AFTERWARDS
 function changeScore(x) {
-  console.log(x);
 
   if (x == 'player1') {
     gameObject.player1score = gameObject.player1score + 1;
   } else if (x == 'player2') {
     gameObject.player2score = gameObject.player2score + 1;
   }
-
+  gameObject.turn = "player1";
   player1ScoreSpan.innerHTML = gameObject.player1score;
   player2ScoreSpan.innerHTML = gameObject.player2score;
   player1NameSpan.innerHTML = gameObject.player1Name;
   player2NameSpan.innerHTML = gameObject.player2Name;
 
+  player1ScoreAfterScreen.innerHTML = gameObject.player1score;
+  player1NameAfterScreen.innerHTML = gameObject.player1Name;
+  player2ScoreAfterScreen.innerHTML = gameObject.player2score;
+  player2NameAfterScreen.innerHTML  = gameObject.player2Name;
+
   // var sizeArray = gameObject.mapSize.split("x");
   // createField(sizeArray[0],sizeArray[1]);
+  afterMatch();
+}
+const afterMatchScreen = document.querySelector('.aftermatchScreen'),
+      nextRoundButton = document.getElementById('nextRound');
+
+nextRoundButton.addEventListener('click',afterMatch.bind(this,true));
+
+
+
+//AFTERMATCH OPTIONS
+function afterMatch(x) {
+  afterMatchScreen.classList.toggle('d-none');
+
+  if (x) {
+      gameChange(gameObject);
+      afterMatchScreen.classList.add('d-none');
+  }
+
 
 }
 
@@ -452,5 +496,5 @@ function checkAndRepair(x) {
   }
 }
 
-createField(5,5);
-// LOGIC ==========================================================================
+createField(3,3);
+})();

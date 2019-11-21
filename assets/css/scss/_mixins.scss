@@ -5,6 +5,11 @@
   transform: translate($translateX, $translateY);
 }
 
+@mixin flexOptions($justify-content,$align-items) {
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
 @mixin fixfloat {
   &::before {
     content: "";
@@ -18,4 +23,8 @@
     float: left;
     clear: both;
   }
+}
+
+@mixin textshadow($width,$minuswidth,$color) {
+  text-shadow: $width 0 $color, $minuswidth 0 $color, 0 $width $color, 0 $minuswidth $color;
 }

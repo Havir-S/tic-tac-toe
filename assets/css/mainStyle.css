@@ -20,14 +20,158 @@
     transform: rotate(360deg);
   }
 }
+@keyframes rollIn {
+  0% {
+    transform: rotateX(90deg) translate(0, -15px);
+  }
+  100% {
+    transform: rotateX(0) translate(0, 0);
+  }
+}
+@keyframes nextRoundAnim {
+  0% {
+    text-shadow: 2px 0 white, -2px 0 white, 0 2px white, 0 -2px white;
+  }
+  50% {
+    text-shadow: 4px 0 white, -4px 0 white, 0 4px white, 0 -4px white;
+  }
+  100% {
+    text-shadow: 2px 0 white, -2px 0 white, 0 2px white, 0 -2px white;
+  }
+}
+@keyframes nextRoundAnimHover {
+  0% {
+    color: #3333ff;
+    text-shadow: 2px 0 white, -2px 0 white, 0 2px white, 0 -2px white;
+  }
+  50% {
+    color: #000099;
+    text-shadow: 4px 0 white, -4px 0 white, 0 4px white, 0 -4px white;
+  }
+  100% {
+    color: #3333ff;
+    text-shadow: 2px 0 white, -2px 0 white, 0 2px white, 0 -2px white;
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes comeFromLeftAnim {
+  0% {
+    left: -120%;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes comeFromTopAnim {
+  0% {
+    top: -120%;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes blinkingAnimation {
+  0% {
+    color: white;
+  }
+  50% {
+    color: black;
+  }
+  100% {
+    color: white;
+  }
+}
+@keyframes comeFromRightAnim {
+  0% {
+    right: -120%;
+  }
+  100% {
+    right: 0;
+  }
+}
+@keyframes comeFromBottomAnim {
+  0% {
+    bottom: -120%;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 0px;
 }
 
 body {
   position: relative;
+  background: #fff;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+input[type=radio] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  transition: 0.2s all ease;
+  margin: 25px auto;
+  z-index: 7;
+  position: relative;
+}
+input[type=radio]::after {
+  box-sizing: border-box;
+  content: "";
+  position: absolute;
+  top: 50px;
+  width: 25px;
+  height: 25px;
+  background-image: linear-gradient(0deg, #b4b4b4, #505050);
+  z-index: 8;
+  border-radius: 50%;
+  transition: 0.2s all ease;
+}
+input[type=radio]:checked::after {
+  top: -2px;
+  background-image: linear-gradient(0deg, #0000cc, #3333ff);
+  transition: 0.2s all ease;
+}
+input[type=radio]::before {
+  box-sizing: border-box;
+  content: "";
+  position: absolute;
+  z-index: 6;
+  width: 25px;
+  top: 0;
+  height: 75px;
+  border-radius: 15px;
+  background-image: linear-gradient(0deg, #909090, #585858);
+  transition: 0.2s all ease;
+}
+input[type=radio]:checked::before {
+  background-image: linear-gradient(0deg, #6464c8, #6464fa);
+  transition: 0.2s all ease;
 }
 
 .error-section {
@@ -70,7 +214,6 @@ body {
 }
 
 .setup-container {
-  border: 1px solid green;
   position: absolute;
   left: 0;
   top: 0;
@@ -83,13 +226,15 @@ body {
   display: none;
 }
 .setup-container .option-wrapper {
-  background: rgba(0, 0, 0, 0.6);
+  background: black;
+  color: white;
   width: 100%;
   height: 100%;
-  border: 1px solid orange;
 }
 .setup-container .option-wrapper .config-container {
-  border: 1px solid blue;
+  box-shadow: 0 0 25px 3px rgba(255, 255, 255, 0.4), 0 0 3px 3px rgba(255, 255, 255, 0.1) inset;
+  min-height: 500px;
+  min-width: 600px;
   position: absolute;
   background: rgba(0, 0, 0, 0.3);
   position: absolute;
@@ -97,14 +242,73 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.setup-container .option-wrapper .config-container .config-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.setup-container .option-wrapper .config-container .config-form .option-div {
+  font-family: "Press Start 2P";
+  text-align: center;
+}
+.setup-container .option-wrapper .config-container .config-form .option-div * {
+  display: block;
+}
+.setup-container .option-wrapper .config-container h4 {
+  font-family: "Press Start 2P";
+  text-align: center;
+  font-size: 16px;
+  margin-top: 40px;
+}
+.setup-container .option-wrapper .config-container .form-map-name {
+  font-size: 30px;
+}
+.setup-container .option-wrapper .config-container h3 {
+  font-family: "Press Start 2P";
+  text-align: center;
+  font-size: 40px;
+  margin: 30px 0 70px;
+}
+.setup-container .option-wrapper .config-container .setup-panel {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.setup-container .option-wrapper .config-container .setup-panel .setup-button {
+  cursor: pointer;
+  position: absolute;
+  font-size: 47px;
+  color: red;
+  animation: rollIn 0.5s forwards;
+  background: transparent;
+  outline: 0;
+  border: 0;
+  transition: all 0.2s linear;
+  font-family: "Press Start 2P";
+}
+.setup-container .option-wrapper .config-container .setup-panel .setup-button:hover {
+  color: blue;
+  animation: pulse 2s infinite ease-in-out;
+  border-bottom: 4px dashed blue;
+}
+.setup-container .option-wrapper .config-container .setup-panel .setup-button-prev {
+  left: 50px;
+  bottom: 25px;
+}
+.setup-container .option-wrapper .config-container .setup-panel .setup-button-next, .setup-container .option-wrapper .config-container .setup-panel #setup-button-start {
+  right: 50px;
+  bottom: 25px;
+}
 
 .main-screen-container {
   width: 100%;
   height: 100vh;
+  background: #fff;
 }
 .main-screen-container #game-map {
   width: 100%;
   height: 100%;
+  background: black;
 }
 .main-screen-container #game-map .container {
   display: inline-block;
@@ -112,9 +316,9 @@ body {
   height: 100%;
 }
 .main-screen-container #game-map .container-left {
-  border: 1px solid pink;
   width: 100%;
   max-width: calc(100% - 325px);
+  background: black;
 }
 .main-screen-container #game-map .container-left::before {
   content: "";
@@ -131,7 +335,6 @@ body {
 .main-screen-container #game-map .container-left .top-div {
   position: relative;
   color: white;
-  background: black;
   font-size: 2rem;
   height: 110px;
   width: 100%;
@@ -140,17 +343,77 @@ body {
   display: inline-block;
 }
 .main-screen-container #game-map .container-left .top-div .settings-div {
-  border: 1px solid red;
-  background: #ff6666;
+  background-image: url("/assets/imgs/navy_blue.png"), linear-gradient(0deg, rgba(190, 190, 190, 0.1), rgba(255, 255, 255, 0.3));
+  border: 0 solid #646464;
+  border-width: 0 3px 3px 0;
+  background-blend-mode: hue;
+  border-radius: 0 0 25px 0;
   width: 240px;
   height: 60px;
+  float: left;
+  display: flex;
+  position: relative;
+  animation: comeFromLeftAnim 0.6s forwards ease-out;
+  justify-content: space-around;
+  align-items: center;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-option {
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-option:hover {
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-hidden {
+  position: absolute;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  transform: translate(0, 0);
+  animation: comeFromLeftAnim 0.36s forwards ease-out;
+  top: calc(100% + 5px);
+  height: 200px;
+  background-image: url("/assets/imgs/navy_blue.png");
+  width: 300px;
+  z-index: 9;
+  border-radius: 0 10px 10px 0;
+  border: 0 solid #646464;
+  border-width: 2px 2px 2px 0;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-hidden span {
+  font-size: 17px;
+  display: inline-block;
+  width: 200px;
+  font-family: "Luckiest Guy";
+  line-height: 1.4rem;
+  padding: 10px;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-hidden .lock-box {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+.main-screen-container #game-map .container-left .top-div .settings-div .settings-hidden .lock-box:hover {
+  transform: scaleX(1.2);
+  transition: all 0.2s;
 }
 .main-screen-container #game-map .container-left .top-div .scoreboard-div {
-  border: 2px solid blue;
-  background: #6666ff;
   width: 300px;
   height: 100%;
   float: right;
+  display: flex;
+  position: relative;
+  animation: comeFromTopAnim 0.4s forwards ease-out;
+  justify-content: space-between;
+  align-items: center;
 }
 .main-screen-container #game-map .container-left .top-div .scoreboard-div::before {
   content: "";
@@ -164,18 +427,32 @@ body {
   float: left;
   clear: both;
 }
+.main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div {
+  text-align: center;
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div span {
+  display: block;
+  font-size: 25px;
+  font-family: "Luckiest Guy";
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div #player1Name, .main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div #player2Name {
+  margin-bottom: 14px;
+}
+.main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div #player1Score, .main-screen-container #game-map .container-left .top-div .scoreboard-div .contestor-div #player2Score {
+  color: red;
+  font-size: 40px;
+}
 .main-screen-container #game-map .container-left .game-container {
-  border: 3px solid blue;
-  background: #6666ff;
   position: relative;
   width: 100%;
   height: 650px;
+  margin-bottom: 5px;
+  background: black;
 }
 .main-screen-container #game-map .container-left .game-container .game-div {
   width: 100%;
   max-width: 650px;
   height: 650px;
-  border: 1px solid yellow;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -185,33 +462,113 @@ body {
   grid-auto-rows: 1fr;
 }
 .main-screen-container #game-map .container-left .game-container .game-div .game-gridObject {
-  border: 4px solid red;
+  cursor: pointer;
+  border: 2px solid #6464ff;
+  background: black;
   z-index: 1000;
+  position: relative;
 }
-.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject[data-box=player1] {
-  background: green;
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject:hover {
+  animation: pulse 1s infinite ease-in-out;
+  background: rgba(100, 100, 100, 0.2);
+  box-shadow: 0 0 2px 5px rgba(100, 100, 100, 0.3);
+  z-index: 1001;
 }
-.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject[data-box=player2] {
-  background: red;
-}
-.main-screen-container #game-map .container-left .game-container .restart-game-screen {
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject .pixel-mode-text {
+  display: block;
   position: absolute;
-  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Press Start 2P";
+  color: white;
+  font-size: 120px;
+  animation: blinkingAnimation 0.4s;
+  animation-iteration-count: 1;
+}
+.main-screen-container #game-map .container-left .game-container .game-div .game-gridObject .pixel-mode-text-small {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Press Start 2P";
+  color: white;
+  font-size: 35px;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen {
+  position: absolute;
+  font-family: "Luckiest Guy";
   position: absolute;
   left: 0;
   top: 0;
   transform: translate(0, 0);
   width: 100%;
   height: 100%;
-  background: rgba(100, 50, 30, 0.8);
+  text-align: center;
+  text-shadow: 3px 0 black, -3px 0 black, 0 3px black, 0 -3px black;
+  animation: rollIn 0.4s forwards;
+  background: url("/assets/imgs/office.png");
+  color: white;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen h3 {
+  text-align: center;
+  margin: 60px;
+  font-size: 70px;
+  text-shadow: 3px 0 black, -3px 0 black, 0 3px black, 0 -3px black;
+  transform: rotate(6deg);
+  animation: rollIn 0.4s forwards;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen h4 {
+  text-align: center;
+  font-size: 60px;
+  margin: 30px;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen #nextRound {
+  font-size: 60px;
+  font-family: inherit;
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+  animation: nextRoundAnim 2s;
+  animation-iteration-count: infinite;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen #nextRound:hover {
+  animation: nextRoundAnimHover 1.4s;
+  animation-iteration-count: infinite;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen #nextRound:active {
+  outline: 0;
+  border: 0;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box .aftermatchScreen-scores {
+  margin: 0 40px;
+  font-size: 47px;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box .aftermatchScreen-scores .aftermatch-player1, .main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box .aftermatchScreen-scores .aftermatch-player2 {
+  display: block;
+  text-align: center;
+}
+.main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box .aftermatchScreen-scores .aftermatch-player1score, .main-screen-container #game-map .container-left .game-container .aftermatchScreen .aftermatchScreen-scores-box .aftermatchScreen-scores .aftermatch-player2score {
+  color: red;
+  display: block;
+  text-align: center;
 }
 .main-screen-container #game-map .container-left .ingame-chat-container {
-  border: 6px solid red;
   width: 100%;
-  height: calc(100% - 760px );
+  border-top: 3px solid grey;
+  height: calc(100% - 765px );
+  overflow: hidden;
+  position: relative;
+  animation: comeFromBottomAnim 0.3s forwards ease-out;
+  background: url("/assets/imgs/hexabump.png");
 }
 .main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat {
-  border: 1px solid yellow;
   width: 100%;
   height: calc(100% - 52px);
   position: relative;
@@ -222,17 +579,72 @@ body {
   bottom: 0;
   left: 0;
   position: absolute;
+  color: white;
+  font-size: 22px;
+  font-family: "VT323";
 }
 .main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type {
   height: 52px;
-  border: 3px solid blue;
   width: 100%;
 }
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type #chat-player-input {
+  width: calc(100% - 125px);
+  height: 100%;
+  font-size: 30px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  outline: 0;
+  border: 0;
+  text-indent: 10px;
+  border-radius: 0 4px 4px 0;
+  color: white;
+  font-family: "VT323";
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type #chat-player-add-message {
+  width: 120px;
+  height: 100%;
+  color: white;
+  font-size: 30px;
+  outline: 0;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  border-radius: 10px;
+  font-family: "VT323";
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.1s;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type #chat-player-add-message:before {
+  content: "";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: -200%;
+  left: -225%;
+  background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type #chat-player-add-message:hover:before {
+  top: 200%;
+  left: 200%;
+}
+.main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat-type #chat-player-add-message:hover {
+  transition: all 0.1s;
+  transform: translate(0, -5px);
+  box-shadow: 0 5px 3px 2px rgba(0, 0, 0, 0.2);
+}
 .main-screen-container #game-map .container-right {
-  border: 3px solid lightblue;
+  border-left: 3px solid #282828;
   float: right;
   width: 100%;
   max-width: 325px;
+  background: url("/assets/imgs/hexabump.png");
+  position: relative;
+  animation: comeFromRightAnim 0.5s forwards ease-out;
 }
 .main-screen-container #game-map .container-right::before {
   content: "";
@@ -247,61 +659,116 @@ body {
   clear: both;
 }
 .main-screen-container #game-map .container-right .chat-container {
-  border: 5px solid red;
   width: 100%;
   height: 100%;
+  font-family: "VT323";
 }
 .main-screen-container #game-map .container-right .chat-container .chat-info {
   width: 100%;
-  border: 6px solid yellow;
   height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(199, 199, 199, 0.3);
+  font-size: 25px;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-info .viewers-img {
+  width: 45px;
+  vertical-align: middle;
+  margin: 5px 5px 5px 15px;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-info .viewers-turnOff {
+  float: right;
+  margin: 5px 15px 5px 5px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-info .viewers-turnOff:hover {
+  box-shadow: 0 0 5px 2px #660000, 0 0 6px 3px red;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-info .viewers-off {
+  box-shadow: 0 0 12px 3px red;
+  transition: all 0.3s;
 }
 .main-screen-container #game-map .container-right .chat-container .chat-inside {
   width: 100%;
-  border: 6px solid black;
+  background: rgba(0, 0, 0, 0.3);
   height: calc(100% - 180px);
+  font-size: 22px;
   position: relative;
+  overflow: hidden;
 }
 .main-screen-container #game-map .container-right .chat-container .chat-inside .chat-main-div {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 15px 5px;
   width: 100%;
   bottom: 0;
   left: 0;
+}
+.main-screen-container #game-map .container-right .chat-container .chat-inside .chat-main-div .chat-message {
+  padding: 5px 0;
 }
 .main-screen-container #game-map .container-right .chat-container .chat-inside .chat-main-div .chat-message .message-text {
   color: white;
 }
 .main-screen-container #game-map .container-right .chat-container .chat-answer {
   width: 100%;
-  border: 6px solid yellow;
   height: 120px;
 }
 .main-screen-container #game-map .container-right .chat-container .chat-answer #chat-input {
-  width: 200px;
+  width: calc(100% - 73px);
   height: auto;
   border-radius: 0;
   padding: 5px;
   margin: 0;
   top: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  outline: 0;
+  border: 0;
+  text-indent: 10px;
+  border-radius: 0 4px 4px 0;
+  color: white;
+  font-family: "VT323";
+  height: 25px;
+  font-size: 25px;
+  padding: 20px 0;
 }
-.main-screen-container .map_paper {
-  background: blue;
+.main-screen-container #game-map .container-right .chat-container .chat-answer #chat-add-message {
+  width: 60px;
+  outline: 0;
+  color: white;
+  font-size: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  border-radius: 10px;
+  font-family: "VT323";
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
 }
-.main-screen-container .map_pixel {
-  background: orange;
+.main-screen-container #game-map .container-right .chat-container .chat-answer #chat-add-message:before {
+  content: "";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: -200%;
+  left: -225%;
+  background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
 }
-.main-screen-container .map_dark {
-  background: green;
+.main-screen-container #game-map .container-right .chat-container .chat-answer #chat-add-message:hover:before {
+  top: 200%;
+  left: 200%;
 }
-.main-screen-container .map_light {
-  background: red;
-}
-.main-screen-container .map_campfire {
-  background: linear-gradient(45deg, pink, lightblue);
-}
-.main-screen-container .map_empty {
-  background: #fff;
+.main-screen-container #game-map .container-right .chat-container .chat-answer #chat-add-message:hover {
+  transition: all 0.2s;
+  box-shadow: 0 5px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
 /*# sourceMappingURL=mainStyle.css.map */
