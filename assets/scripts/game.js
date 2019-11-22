@@ -248,6 +248,7 @@ function againstAi(x) {
 
      this.setAttribute('data-used','true');
      this.setAttribute('data-box', 'player1');
+     this.classList.add('taken');
      if (gameObject.mapSize == "3x3") {
        this.innerHTML = '<span class="pixel-mode-text">X</span>';
      } else if (gameObject.mapSize == "10x10") {
@@ -263,6 +264,7 @@ function againstAi(x) {
     gameObject.turn = 'player2';
     choosenPosition.setAttribute('data-used','true');
     choosenPosition.setAttribute('data-box', 'player2');
+    choosenPosition.classList.add('taken');
     if (gameObject.mapSize == "3x3") {
       choosenPosition.innerHTML = '<span class="pixel-mode-text">O</span>';
     } else if (gameObject.mapSize == "10x10") {
@@ -280,14 +282,24 @@ function makeAMove(x) {
   if (gameObject.turn == 'player1' && gameObject.ai == 'player_vs_player') {
     this.setAttribute('data-box', 'player1');
     gameObject.turn = 'player2';
-    this.innerHTML = '<span class="pixel-mode-text">X</span>';
+    this.classList.add('taken');
+    if (gameObject.mapSize == '3x3') {
+      this.innerHTML = '<span class="pixel-mode-text">X</span>';
+    } else if ( gameObject.mapSize == '10x10') {
+      this.innerHTML = '<span class="pixel-mode-text-small">X</span>';
+    }
     //check if this move won the game
     checkForWin('player1',this);
 
   } else if (gameObject.turn == 'player2' && gameObject.ai == 'player_vs_player') {
     this.setAttribute('data-box', 'player2');
     gameObject.turn = 'player1';
-    this.innerHTML = '<span class="pixel-mode-text">O</span>';
+    this.classList.add('taken');
+    if (gameObject.mapSize == '3x3') {
+      this.innerHTML = '<span class="pixel-mode-text">O</span>';
+    } else if ( gameObject.mapSize == '10x10') {
+      this.innerHTML = '<span class="pixel-mode-text-small">O</span>';
+    }
     //Check if this move won the game
     checkForWin('player2',this);
 

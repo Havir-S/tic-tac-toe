@@ -400,6 +400,7 @@ input[type="radio"] {
               @include pulse(1s);
               background: rgba(100,100,100,0.2);
               box-shadow: 0 0 2px 5px rgba(100,100,100,0.3);
+              border: 2px solid rgba(50,200,135,1);
               z-index: 1001;
             }
             .pixel-mode-text {
@@ -417,6 +418,13 @@ input[type="radio"] {
               color: white;
               font-size: 35px;
             }
+          }
+          .taken:hover {
+            @include pulse(1s);
+            background: rgba(100,100,100,0.2);
+            box-shadow: 0 0 2px 5px rgba(100,100,100,0.3);
+            border: 3px solid rgba(222,90,95,1);
+            z-index: 1001;
           }
           .game-gridObject[data-box='player1'] {
             // background: green;

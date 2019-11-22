@@ -472,6 +472,7 @@ input[type=radio]:checked::before {
   animation: pulse 1s infinite ease-in-out;
   background: rgba(100, 100, 100, 0.2);
   box-shadow: 0 0 2px 5px rgba(100, 100, 100, 0.3);
+  border: 2px solid #32c887;
   z-index: 1001;
 }
 .main-screen-container #game-map .container-left .game-container .game-div .game-gridObject .pixel-mode-text {
@@ -495,6 +496,13 @@ input[type=radio]:checked::before {
   font-family: "Press Start 2P";
   color: white;
   font-size: 35px;
+}
+.main-screen-container #game-map .container-left .game-container .game-div .taken:hover {
+  animation: pulse 1s infinite ease-in-out;
+  background: rgba(100, 100, 100, 0.2);
+  box-shadow: 0 0 2px 5px rgba(100, 100, 100, 0.3);
+  border: 3px solid #de5a5f;
+  z-index: 1001;
 }
 .main-screen-container #game-map .container-left .game-container .aftermatchScreen {
   position: absolute;
