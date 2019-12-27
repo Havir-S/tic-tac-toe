@@ -574,7 +574,7 @@ input[type=radio]:checked::before {
   overflow: hidden;
   position: relative;
   animation: comeFromBottomAnim 0.3s forwards ease-out;
-  background: url("/tic-tac-toe/assets/imgs/hexabump.png");
+  background: url("tic-tac-toe/assets/imgs/hexabump.png");
 }
 .main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat {
   width: 100%;
