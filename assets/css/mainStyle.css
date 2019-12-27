@@ -343,7 +343,7 @@ input[type=radio]:checked::before {
   display: inline-block;
 }
 .main-screen-container #game-map .container-left .top-div .settings-div {
-  background-image: url("/assets/imgs/navy_blue.png"), linear-gradient(0deg, rgba(190, 190, 190, 0.1), rgba(255, 255, 255, 0.3));
+  background-image: url("/tic-tac-toe/assets/imgs/navy_blue.png"), linear-gradient(0deg, rgba(190, 190, 190, 0.1), rgba(255, 255, 255, 0.3));
   border: 0 solid #646464;
   border-width: 0 3px 3px 0;
   background-blend-mode: hue;
@@ -375,7 +375,7 @@ input[type=radio]:checked::before {
   animation: comeFromLeftAnim 0.36s forwards ease-out;
   top: calc(100% + 5px);
   height: 200px;
-  background-image: url("/assets/imgs/navy_blue.png");
+  background-image: url("/tic-tac-toe/assets/imgs/navy_blue.png");
   width: 300px;
   z-index: 9;
   border-radius: 0 10px 10px 0;
@@ -516,7 +516,7 @@ input[type=radio]:checked::before {
   text-align: center;
   text-shadow: 3px 0 black, -3px 0 black, 0 3px black, 0 -3px black;
   animation: rollIn 0.4s forwards;
-  background: url("/assets/imgs/office.png");
+  background: url("/tic-tac-toe/assets/imgs/office.png");
   color: white;
 }
 .main-screen-container #game-map .container-left .game-container .aftermatchScreen h3 {
@@ -574,7 +574,7 @@ input[type=radio]:checked::before {
   overflow: hidden;
   position: relative;
   animation: comeFromBottomAnim 0.3s forwards ease-out;
-  background: url("./assets/imgs/hexabump.png");
+  background: url("/tic-tac-toe/assets/imgs/hexabump.png");
 }
 .main-screen-container #game-map .container-left .ingame-chat-container .ingame-chat {
   width: 100%;
@@ -650,7 +650,7 @@ input[type=radio]:checked::before {
   float: right;
   width: 100%;
   max-width: 325px;
-  background: url("/assets/imgs/hexabump.png");
+  background: url("/tic-tac-toe/assets/imgs/hexabump.png");
   position: relative;
   animation: comeFromRightAnim 0.5s forwards ease-out;
 }
